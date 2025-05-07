@@ -1,0 +1,69 @@
+app.css
+
+
+
+
+/* Light Theme */
+:root {
+  --main-bg-color: #27274e;
+  --bg-color: #1f1f2e;
+  --text-color: #ffffff;
+  --button-bg: #5f5f86;
+  --button-text-color: #ffffff;
+  --button-hover-bg: #4d4d69;
+}
+
+/* Global Styles */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease; /* Smooth transition */
+}
+
+button {
+  background-color: #4d4d79;
+  color: var(--button-text-color);
+  border-radius: 8px;
+  padding: 0.5em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--button-hover-bg);
+}
+
+/* Global styles for scrollbars */
+
+/* For WebKit-based browsers (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 10px; /* Width of the vertical scrollbar */
+  height: 10px; /* Height of the horizontal scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* Track background (optional, transparent here) */
+}
+
+::-webkit-scrollbar-thumb {
+  background: black; /* Scrollbar color */
+  border-radius: 5px; /* Optional: Makes the scrollbar rounded */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: darkgray; /* Lighter black when hovered */
+}
+
+/* For Firefox */
+html {
+  scrollbar-color: black transparent; /* Thumb and track colors */
+  scrollbar-width: thin; /* Makes the scrollbar thinner */
+}
