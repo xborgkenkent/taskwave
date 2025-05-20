@@ -11,20 +11,21 @@ interface ListProps {
   onCardClick: (card: CardType) => void;
   onEditListTitle: (listId: string, newTitle: string) => void;
   onRemoveList: (listId: string) => void;
+  onSortByDate: (listId: string, updatedCards: CardType[]) => void;
   onSortByTitle: (listId: string, updatedCards: CardType[]) => void;
 }
 
 const List: React.FC<ListProps> = ({
   list,
   onAddCard,
-  onCardClick,
-  onEditListTitle,
-}) => {
+  onCardClick, onEditListTitle, onRemoveList,onSortByDate, onSortByTitle
+                                   }) => {
   const [isAddingCard, setIsAddingCard] = useState(false);
   const [newCardTitle, setNewCardTitle] = useState('');
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [listTitle, setListTitle] = useState(list.title);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc" | null>(null)
 
   const handleAddCard = () => {
     if (newCardTitle.trim()) {
@@ -86,12 +87,29 @@ const List: React.FC<ListProps> = ({
   };
 
   const handleRemoveList = () => {
-    throw new Error('Function not implemented.');
+    onRemoveList(list.id)
+    // throw new Error('Function not implemented.');
   };
 
   const handleSortByTitle = () => {
-    throw new Error('Function not implemented.');
+
+    const newSortDirection = sortDirection === "asc" ? "desc" : "asc"
+    const sortedCards = [...list.cards].sort((a, b) => {
+      return newSortDirection === "asc" ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title)
+      })
+    setSortDirection(newSortDirection)
+    onSortByTitle(list.id, sortedCards)
+    // throw new Error('Function not implemented.');
   };
+
+  const handleSortByDate = () => {
+    const newSortDirection = sortDirection === "asc" ? "desc" : "asc"
+    const sortedCards = [...list.cards].sort((a, b) => {
+      return newSortDirection === "asc" ? a.dateAdded.getTime() - b.dateAdded.getTime() : b.dateAdded.getTime() - a.dateAdded.getTime()
+    })
+    setSortDirection(newSortDirection)
+    onSortByDate(list.id, sortedCards)
+  }
 
   return (
     <div className="w-72 flex-shrink-0 max-h-full flex flex-col mr-4 rounded overflow-hidden shadow-md">
@@ -140,7 +158,9 @@ const List: React.FC<ListProps> = ({
                 >
                   Sort by title (Ascending and Descending)
                 </li>
-                <li className="py-2 px-4 rounded cursor-pointer hover:bg-[#8d80d6]">
+                <li className="py-2 px-4 rounded cursor-pointer hover:bg-[#8d80d6]"
+                  onClick={handleSortByDate}
+                >
                   Sort by date (Ascending and Descending)
                 </li>
               </ul>
