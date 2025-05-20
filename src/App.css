@@ -1,11 +1,6 @@
-app.css
-
-
-
-
 /* Light Theme */
 :root {
-  --main-bg-color: #27274e;
+  --main-bg-color: #FF0000;
   --bg-color: #1f1f2e;
   --text-color: #ffffff;
   --button-bg: #5f5f86;
